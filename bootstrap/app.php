@@ -23,9 +23,9 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+    $app->withFacades();
 
-// $app->withEloquent();
+    $app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -63,9 +63,21 @@ $app->singleton(
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'cors' => \Barryvdh\Cors\HandleCors::class,
+    'log' => App\Http\Middleware\LogActivity::class
+]);
+
+/*
+|--------------------------------------------------------------------------
+| Register Configures
+|--------------------------------------------------------------------------
+|
+| Next, we will register the configures .
+|
+*/
+
+$app->configure('cors');
 
 /*
 |--------------------------------------------------------------------------
@@ -78,9 +90,10 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Barryvdh\Cors\ServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -96,7 +109,7 @@ $app->singleton(
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__.'/../routes/web.php';
+    require __DIR__.'/../routes/api.php';
 });
 
 return $app;
