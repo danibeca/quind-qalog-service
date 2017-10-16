@@ -113,4 +113,10 @@ $app->router->group([
     require __DIR__.'/../routes/api.php';
 });
 
+
+/*$app->singleton(\App\Utils\Models\Language\ISelectedLanguage::class, function($app)
+{
+    return new \App\Utils\Models\Language\SelectedLanguage();
+});*/
+
 return $app;

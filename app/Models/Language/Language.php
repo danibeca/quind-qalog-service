@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Agilin\Models\Language;
+namespace App\Models\Language;
 
 
 use Illuminate\Database\Eloquent\Model;

@@ -16,9 +16,10 @@ $router->group([
 
     $router->group([
         'prefix'    => '/indicators',
-        'namespace' => 'Indicator'], function () use ($router) {
+        'namespace' => 'Component'], function () use ($router) {
 
-        $router->get('/{id:[\d]+}', ['uses' => 'ComponentIndicatorController@index']);
+        $router->get('/', ['uses' => 'IndicatorController@index']);
+
 
 
     });

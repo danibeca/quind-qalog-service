@@ -2,16 +2,19 @@
 
 namespace App\Utils\Transformers;
 
-use Carbon\Carbon;
 
 class IndicatorTransformer extends Transformer
 {
 
     public function transform($indicator)
     {
+        /*$name = $indicator->tmpname;
+        if($indicator->lr_name !== null){
+            $name = $indicator->name;
+        }*/
         return [
-            'date'  => Carbon::parse($indicator['created_at'])->format('d-m-Y'),
-            'value' => round($indicator['value'], 2)
+            'id'  => $indicator['id'],
+            'name' =>$indicator['name']
         ];
     }
 }

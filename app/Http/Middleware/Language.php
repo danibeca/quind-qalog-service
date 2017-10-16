@@ -2,11 +2,15 @@
 
 namespace App\Http\Middleware;
 
+use App\Utils\Models\Language\SelectedLanguage;
 use Closure;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
 
 
-class Language {
+class Language
+{
 
     /**
      * Handle an incoming request.
@@ -28,11 +32,14 @@ class Language {
         }
         if ($headerlang !== null)
         {
-            $language = \Agilin\Models\Language\Language::whereCode($headerlang)->first();
+            $language = \App\Models\Language\Language::whereCode($headerlang)->first();
             $lang = $language->id;
         }
 
-        session(['language' => $lang]);
+        App::singleton(SelectedLanguage::class);
+        $instance = App::make(SelectedLanguage::class);
+        $instance->setLanguageId($lang);
+
         return $next($request);
     }
 }

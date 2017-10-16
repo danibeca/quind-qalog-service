@@ -6,10 +6,13 @@ namespace App\Utils\Models\Language;
 trait NameAttribute {
 
     public function lrname(){
-        return $this->belongsTo('Appin\Models\Language\Resource', 'lr_name','id');
+        return $this->belongsTo('App\Models\Language\Resource', 'lr_name','id');
     }
 
     public function getNameAttribute(){
-        return $this->lrname->language->first()->pivot->translation;
+        $resource = $this->lrname;
+        $result =  is_null($resource) ? $this->tmpname : $resource->language->first()->pivot->translation;
+        return $result;
     }
+
 }
