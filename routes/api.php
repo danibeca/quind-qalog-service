@@ -15,13 +15,25 @@ $router->group([
 
 
     $router->group([
+        'prefix'    => '/components',
+        'namespace' => 'Component'], function () use ($router) {
+
+        $router->get('/{id:[\d]+}', ['uses' => 'ComponentController@show']);
+    });
+
+    $router->group([
         'prefix'    => '/indicators',
         'namespace' => 'Component'], function () use ($router) {
 
         $router->get('/', ['uses' => 'IndicatorController@index']);
 
+    });
 
+    $router->group([
+        'prefix'    => '/metrics',
+        'namespace' => 'Metric'], function () use ($router) {
 
+        $router->get('/', ['uses' => 'ExternalMetricController@index']);
     });
 });
 
