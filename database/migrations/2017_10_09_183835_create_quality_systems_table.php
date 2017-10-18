@@ -23,9 +23,11 @@ class CreateQualitySystemsTable extends Migration
             array(
                 array(
                     'id' => 1,
+                    'wrapper_class' => 'App\Models\QualitySystem\Wrapper\Sonar63Wrapper'
                 ),
                 array(
                     'id' => 2,
+                    'wrapper_class' => 'App\Models\QualitySystem\Wrapper\Sonar63Wrapper'
                 )
             ));
     }
