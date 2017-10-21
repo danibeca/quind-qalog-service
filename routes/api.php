@@ -18,7 +18,10 @@ $router->group([
         'prefix'    => '/components',
         'namespace' => 'Component'], function () use ($router) {
 
-        $router->get('/{id:[\d]+}', ['uses' => 'ComponentController@show']);
+        $router->get('/{id:[\d]+}/leaves', ['uses' => 'ComponentLeafController@index']);
+
+        $router->post('/{id:[\d]+}/metric-values', ['uses' => 'ComponentMetricValueController@create']);
+        $router->post('/{id:[\d]+}/issue-values', ['uses' => 'ComponentIssueValueController@create']);
     });
 
     $router->group([
