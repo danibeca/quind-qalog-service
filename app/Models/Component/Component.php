@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Component extends Model
 {
 
+    protected $fillable = ['id', 'type_id'];
+
     public function qualitySystem()
     {
       return  $this->belongsTo('\App\Models\QualitySystem\QualitySystem');

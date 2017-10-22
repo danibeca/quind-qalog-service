@@ -18,6 +18,8 @@ $router->group([
         'prefix'    => '/components',
         'namespace' => 'Component'], function () use ($router) {
 
+        $router->post('/', ['uses' => 'ComponentController@store']);
+
         $router->get('/{id:[\d]+}/leaves', ['uses' => 'ComponentLeafController@index']);
 
         $router->post('/{id:[\d]+}/metric-values', ['uses' => 'ComponentMetricValueController@create']);
