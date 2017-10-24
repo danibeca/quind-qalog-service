@@ -3,6 +3,7 @@
 namespace App\Models\Component;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Component extends Model
 {
@@ -14,15 +15,44 @@ class Component extends Model
       return  $this->belongsTo('\App\Models\QualitySystem\QualitySystemInstance','quality_system_instance_id');
     }
 
-    public function getDescendants()
+    public function getLeavesWithQSI()
     {
-/*        $node = ComponentTree::where('component_id', $this->id)->get()->first();
-        return Component::findMany($node->getDescendants()->pluck('component_id'))
-            ->where('app_code', '!=',null)->with('qualitySystem');
-*/
-        $node = ComponentTree::where('component_id', $this->id)->get()->first();
-        return Component::whereIn('id', $node->getDescendants()->pluck('component_id'))
-            ->where('app_code', '!=',null)->with('qualitySystemInstance','qualitySystemInstance.qualitySystem')->get();
+        $result = collect();
+        $tree = ComponentTree::where('component_id', $this->id)->get()->first()->getDescendants();
+        if ($tree->count() > 0)
+        {
+            $ids = $tree->pluck('component_id');
+            $result = Component::whereIn('id', $ids)
+                ->where('type_id', 3)
+                ->with('qualitySystemInstance','qualitySystemInstance.qualitySystem')
+                ->get();
+        }
+
+        return $result;
+
+    }
+
+    public function getLeaves()
+    {
+        $result = collect();
+        $tree = ComponentTree::where('component_id', $this->id)->get()->first()->getDescendants();
+        if ($tree->count() > 0)
+        {
+            $ids = $tree->pluck('component_id');
+            $result = Component::whereIn('id', $ids)->where('type_id', 3)->get();
+
+        }
+
+        return $result;
+
+    }
+
+    public function calculateIndicators()
+    {
+        foreach (Indicator::all()->sortBy('level') as $indicator){
+            $indicator->calculate($this->id);
+        }
+
     }
 
 }

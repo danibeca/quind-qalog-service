@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Component;
 
 use App\Models\Component\ComponentJobSerie;
 use App\Models\Component\Indicator;
-use App\Models\QualitySystem\ExternalMetricValue;
+use App\Models\Component\MetricValue;
 use App\Utils\Transformers\IndicatorSerieTransformer;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Input;
@@ -14,13 +14,13 @@ class ComponentMetricValueController extends ApiController
 {
     public function create($componentId)
     {
-        ExternalMetricValue::where('component_id', $componentId)->delete();
+        MetricValue::where('component_id', $componentId)->delete();
 
         $metrics = Input::all();
 
         foreach ($metrics as $metric)
         {
-            $value = new ExternalMetricValue($metric);
+            $value = new MetricValue($metric);
             $value->component_id = $componentId;
             $value->save();
         }
