@@ -69,7 +69,7 @@ class QualitySystemInstanceController extends ApiController
         $qsi->verified = $verified;
         $qsi->component_owner_id = $request->component_id;
 
-        if($qsi->type === 1){
+        if($request->type == 1){
             $qsi->client_id = 1;
         }
         $qsi->save();
