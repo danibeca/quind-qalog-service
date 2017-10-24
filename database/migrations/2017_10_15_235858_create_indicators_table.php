@@ -424,7 +424,7 @@ class CreateIndicatorsTable extends Migration
                     'code'             => 'qhc_bad_points_bugs',
                     'level'            => 2,
                     'calculation_rule' => '{"+":[{"*":[ {"var": "@ind_blocker_bug"},15 ]},{"*":[ {"var": "@ind_critical_bug"},8 ]},{"*":[ {"var": "@ind_major_bug"},5 ]},{"*":[ {"var": "@ind_minor_bug"},3 ]},{"*":[ {"var": "@ind_info_bug"},1 ]}]}',
-                    'calculation_data' => '{"@ind_blocker_bug":"@ind_blocker_bug.value","@ind_critical_bug":"@ind_critical_bug.value","@ind_major_bug":"@ind_major_bug.value","@ind_minor_bug":"@ind_minor_bug.value","@ind_info_bug":"@ind_info_bug}.value"}',
+                    'calculation_data' => '{"@ind_blocker_bug":"@ind_blocker_bug.value","@ind_critical_bug":"@ind_critical_bug.value","@ind_major_bug":"@ind_major_bug.value","@ind_minor_bug":"@ind_minor_bug.value","@ind_info_bug":"@ind_info_bug.value"}',
                     'lr_name'          => null,
                 ),
 
@@ -434,7 +434,7 @@ class CreateIndicatorsTable extends Migration
                     'code'             => 'qhc_bad_points_vulnerabilities',
                     'level'            => 2,
                     'calculation_rule' => '{"+":[{"*":[ {"var": "@ind_blocker_vulnerability"},12 ]},{"*":[ {"var": "@ind_critical_vulnerability"},6 ]},{"*":[ {"var": "@ind_major_vulnerability"},3 ]},{"*":[ {"var": "@ind_minor_vulnerability"},2 ]},{"*":[ {"var": "@ind_info_vulnerability"},1 ]}]}',
-                    'calculation_data' => '{"@ind_blocker_vulnerability":"@ind_blocker_vulnerability.value","@ind_critical_vulnerability":"@ind_critical_vulnerability.value","@ind_major_vulnerability":"@ind_major_vulnerability.value","@ind_minor_vulnerability":"@ind_minor_vulnerability.value","@ind_info_vulnerability":"@ind_info_vulnerability}.value"}',
+                    'calculation_data' => '{"@ind_blocker_vulnerability":"@ind_blocker_vulnerability.value","@ind_critical_vulnerability":"@ind_critical_vulnerability.value","@ind_major_vulnerability":"@ind_major_vulnerability.value","@ind_minor_vulnerability":"@ind_minor_vulnerability.value","@ind_info_vulnerability":"@ind_info_vulnerability.value"}',
                     'lr_name'          => null,
                 ),
 
@@ -494,7 +494,7 @@ class CreateIndicatorsTable extends Migration
                     'code'             => 'qre_bad_points_bugs',
                     'level'            => 2,
                     'calculation_rule' => '{"+":[{"*":[ {"var": "@ind_blocker_bug"},10 ]},{"*":[ {"var": "@ind_critical_bug"},7 ]},{"*":[ {"var": "@ind_major_bug"},5 ]},{"*":[ {"var": "@ind_minor_bug"},1 ]},{"*":[ {"var": "@ind_info_bug"},0 ]}]}',
-                    'calculation_data' => '{"@ind_blocker_bug":"@ind_blocker_bug.value","@ind_critical_bug":"@ind_critical_bug.value","@ind_major_bug":"@ind_major_bug.value","@ind_minor_bug":"@ind_minor_bug.value","@ind_info_bug":"@ind_info_bug}.value"}',
+                    'calculation_data' => '{"@ind_blocker_bug":"@ind_blocker_bug.value","@ind_critical_bug":"@ind_critical_bug.value","@ind_major_bug":"@ind_major_bug.value","@ind_minor_bug":"@ind_minor_bug.value","@ind_info_bug":"@ind_info_bug.value"}',
                     'lr_name'          => null,
                 ),
 

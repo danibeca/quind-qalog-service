@@ -15,7 +15,9 @@ class CreateQualitySystemsTable extends Migration
     {
         Schema::create('quality_systems', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name', 50);
             $table->string('wrapper_class', 100);
+            $table->boolean('active');
             $table->timestamps();
         });
 
@@ -23,11 +25,15 @@ class CreateQualitySystemsTable extends Migration
             array(
                 array(
                     'id' => 1,
-                    'wrapper_class' => 'App\Models\QualitySystem\Wrapper\Sonar63Wrapper'
+                    'name' => 'SonarQube 6',
+                    'wrapper_class' => 'App\Models\QualitySystem\Wrapper\Sonar63Wrapper',
+                    'active' => true
                 ),
                 array(
                     'id' => 2,
-                    'wrapper_class' => 'App\Models\QualitySystem\Wrapper\Sonar63Wrapper'
+                    'name' => 'SonarQube 6.2',
+                    'wrapper_class' => 'App\Models\QualitySystem\Wrapper\Sonar62Wrapper',
+                    'active' => false
                 )
             ));
     }

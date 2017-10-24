@@ -9,9 +9,9 @@ class Component extends Model
 
     protected $fillable = ['id', 'type_id'];
 
-    public function qualitySystem()
+    public function qualitySystemInstance()
     {
-      return  $this->belongsTo('\App\Models\QualitySystem\QualitySystem');
+      return  $this->belongsTo('\App\Models\QualitySystem\QualitySystemInstance','quality_system_instance_id');
     }
 
     public function getDescendants()

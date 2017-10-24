@@ -30,7 +30,8 @@
         "illuminate/translation": "5.5.2",
         "illuminate/validation": "5.5.2",
         "illuminate/view": "5.5.2",
-        "kalnoy/nestedset": "^4.3"
+        "kalnoy/nestedset": "^4.3",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
