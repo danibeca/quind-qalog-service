@@ -58,6 +58,12 @@ $router->group([
         $router->get('/verify', ['uses' => 'QualitySystemInstanceController@verify']);
         $router->post('/', ['uses' => 'QualitySystemInstanceController@store']);
     });
+
+    $router->group([
+        'prefix'    => '/api-clients',
+        'namespace' => 'APIClient'], function () use ($router) {
+        $router->get('/{code}/roots', ['uses' => 'APIClientComponentController@index']);
+    });
 });
 
 

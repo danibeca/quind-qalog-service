@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Component;
 
 use App\Models\Component\ComponentJobSerie;
 use App\Models\Component\Indicator;
+use App\Models\QualitySystem\IssueValue;
 use App\Utils\Transformers\IndicatorSerieTransformer;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Input;
@@ -13,21 +14,16 @@ class ComponentIssueValueController extends ApiController
 {
     public function create($componentId)
     {
-
+        IssueValue::where('component_id', $componentId)->delete();
         $issues = Input::all();
-
         foreach ($issues as $issue)
         {
-
-            Log::info(json_encode($issue));
-            /*$job = new ComponentJobSerie();
-            $job->name = $metric['name'];
-            $job->type = $metric['type'];
-            $job->external_id = $metric['id'];
-            $job->component_id = $componentId;
-            $job->save();*/
+            //TODO Change to Async
+            $value = new IssueValue($issue);
+            $value->component_id = $componentId;
+            $value->tags = json_encode($issue['tags']);
+            $value->save();
         }
-
 
         return $this->respondResourceCreated();
     }

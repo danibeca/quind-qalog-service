@@ -17,6 +17,7 @@ class CreateQualitySystemInstancesTable extends Migration
             $table->increments('id');
             $table->integer('quality_system_id')->unsigned();
             $table->integer('component_owner_id')->unsigned();
+            $table->integer('api_client_id')->unsigned();
             $table->string('url', 150);
             $table->integer('type');
             $table->string('username', 150)->nullable();
@@ -24,6 +25,7 @@ class CreateQualitySystemInstancesTable extends Migration
             $table->boolean('verified')->default(0);
             $table->timestamps();
             $table->foreign('quality_system_id')->references('id')->on('quality_systems')->onDelete('cascade');
+            $table->foreign('api_client_id')->references('id')->on('api_clients')->onDelete('cascade');
 
         });
     }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Component extends Model
 {
 
-    protected $fillable = ['id', 'type_id'];
+    protected $fillable = ['id', 'type_id', 'app_code', 'quality_system_instance_id'];
 
     public function qualitySystemInstance()
     {
@@ -22,7 +22,7 @@ class Component extends Model
 */
         $node = ComponentTree::where('component_id', $this->id)->get()->first();
         return Component::whereIn('id', $node->getDescendants()->pluck('component_id'))
-            ->where('app_code', '!=',null)->with('qualitySystem')->get();
+            ->where('app_code', '!=',null)->with('qualitySystemInstance','qualitySystemInstance.qualitySystem')->get();
     }
 
 }

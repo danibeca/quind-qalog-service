@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Component;
 
 use App\Models\Component\ComponentJobSerie;
 use App\Models\Component\Indicator;
+use App\Models\QualitySystem\ExternalMetricValue;
 use App\Utils\Transformers\IndicatorSerieTransformer;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Input;
@@ -13,22 +14,16 @@ class ComponentMetricValueController extends ApiController
 {
     public function create($componentId)
     {
-
+        ExternalMetricValue::where('component_id', $componentId)->delete();
 
         $metrics = Input::all();
 
         foreach ($metrics as $metric)
         {
-
-            Log::info(json_encode($metric));
-            /*$job = new ComponentJobSerie();
-            $job->name = $metric['name'];
-            $job->type = $metric['type'];
-            $job->external_id = $metric['id'];
-            $job->component_id = $componentId;
-            $job->save();*/
+            $value = new ExternalMetricValue($metric);
+            $value->component_id = $componentId;
+            $value->save();
         }
-
 
         return $this->respondResourceCreated();
 

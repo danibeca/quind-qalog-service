@@ -11,12 +11,11 @@ class ComponentTransformer extends Transformer
         return [
             'id'  => $component['id'],
             'app_code' =>$component['app_code'],
-            'username' =>$component['username'],
-            'password' =>$component['password'],
-            'url' =>$component['api_server_url'],
-            'quality_system_id' =>$component['quality_system_id'],
-            'wrapper_class' =>$component['quality_system']['wrapper_class'],
-
+            'url' =>$component['quality_system_instance']['url'],
+            'username' =>$component['quality_system_instance']['username'],
+            'password' =>$component['quality_system_instance']['password'],
+            'wrapper_class' =>$component['quality_system_instance']['quality_system']['wrapper_class'],
+            'quality_system_id' =>$component['quality_system_instance']['quality_system']['id']
         ];
 
         return $component;
