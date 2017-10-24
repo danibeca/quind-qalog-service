@@ -70,7 +70,7 @@ class QualitySystemInstanceController extends ApiController
         $qsi->component_owner_id = $request->component_id;
 
         if($request->type == 1){
-            $qsi->client_id = 1;
+            $qsi->api_client_id = 1;
         }
         $qsi->save();
 
