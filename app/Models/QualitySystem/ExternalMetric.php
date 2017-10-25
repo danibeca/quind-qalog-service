@@ -16,22 +16,41 @@ class ExternalMetric extends Model
 
     public function calculate()
     {
+        $this->value = 0;
 
         $extenalMetricValue = ExternalMetricValue::where('external_metric_id', $this->id)->get()->first();
-        if(isset($extenalMetricValue)){
+        if (isset($extenalMetricValue))
+        {
             $this->value = $extenalMetricValue->value;
-            return $this->normalize();
+
         }
 
-        if($this->type == 2){
+        if ($this->type == 2)
+        {
             $pattern = json_decode($this->pattern);
-            if(isset($pattern->search)){
-                Log::info(IssueValue::where('tags','like','%'.$pattern->value.'%')->count());
+            if (isset($pattern->search))
+            {
+                $this->value = IssueValue::where('tags', 'like', '%' . $pattern->value . '%')
+                    ->count();
+            } else
+            {
+                $query = [];
+                $count =  0;
+                foreach ($pattern as $key => $value){
+                    $query[$count]['column'] = $key;
+                    $query[$count]['value'] = $value;
+                    $count++;
+                }
+                $this->value = IssueValue::where($query[0]['column'] ,$query[0]['value'])
+                    ->where($query[1]['column'] ,$query[1]['value'])
+                    ->count();
             }
 
         }
 
-        return 0;
+        return $this->normalize();
+
+
     }
 
     public function normalize()
@@ -50,6 +69,7 @@ class ExternalMetric extends Model
                 $data = str_replace($key . '.value', $metricDependency->calculate(), $data);
             }
         }
+
         return JsonLogic::apply(json_decode($this->normalization_rule), json_decode($data));
     }
 }

@@ -12,6 +12,9 @@ class QualitySystemInstanceTransformer extends Transformer
             'id' => $instance['id'],
             'name'  => $instance['quality_system']['name'],
             'url'  => $instance['url'],
+            'username'  => $instance['username'],
+            'type'  => $instance['type'],
+            'quality_system_id' => $instance['type'],
             'verified' =>$instance['verified']
         ];
 

@@ -22,6 +22,12 @@ class Metric extends Model
         if (! isset($metricValue))
         {
             $result = $this->calculateFromExternalMetric($componentId);
+            $newMetricValue = new MetricValue();
+            $newMetricValue->component_id = $componentId;
+            $newMetricValue->metric_id = $this->id;
+            $newMetricValue->value = $result;
+            $newMetricValue->save();
+
         }else{
             $result = $metricValue->value;
         }
