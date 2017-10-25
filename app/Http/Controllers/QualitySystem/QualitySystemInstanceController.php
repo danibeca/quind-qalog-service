@@ -93,7 +93,7 @@ class QualitySystemInstanceController extends ApiController
     }
 
 
-    public function update($id, Request $request)
+    public function update(Request $request, $id)
     {
         $qsi = QualitySystemInstance::find($id);
         if (isset($qsi))
