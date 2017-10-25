@@ -71,13 +71,17 @@ class QualitySystemInstanceController extends ApiController
         $qsi->type = $request->type;
         $qsi->verified = $verified;
         $qsi->component_owner_id = $request->component_id;
-        $qsi->username = $request->username;
-        $qsi->password = $request->password;
+        if ($request->has('username'))
+        {
+            $qsi->username = $request->username;
+            $qsi->password = $request->password;
+        }
 
         if ($request->type == 1)
         {
             $qsi->api_client_id = 1;
-        }else{
+        } else
+        {
             $newClient = new APIClient();
             $newClient->code = password_hash('testing', PASSWORD_BCRYPT);
             $newClient->save();
@@ -92,20 +96,25 @@ class QualitySystemInstanceController extends ApiController
     public function update(Request $request, $id)
     {
         $qsi = QualitySystemInstance::find($id);
-        if(isset($qsi)){
+        if (isset($qsi))
+        {
             $verified = ($request->has('verified')) ? $request->verified : false;
             $qsi->quality_system_id = $request->id;
             $qsi->url = $request->url;
             $qsi->type = $request->type;
             $qsi->verified = $verified;
             $qsi->component_owner_id = $request->component_id;
-            $qsi->username = $request->username;
-            $qsi->password = $request->password;
+            if ($request->has('username'))
+            {
+                $qsi->username = $request->username;
+                $qsi->password = $request->password;
+            }
 
             if ($request->type == 1)
             {
                 $qsi->api_client_id = 1;
-            }else{
+            } else
+            {
                 $newClient = new APIClient();
                 $newClient->code = password_hash('testing', PASSWORD_BCRYPT);
                 $newClient->save();
