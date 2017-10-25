@@ -53,7 +53,6 @@ class Component extends Model
         MetricValue::where('component_id', $this->id)->delete();
 
         if($this->type_id != 3){
-            Log::info($this->type_id);
             foreach (Metric::all() as $metric)
             {
                 $value = 0;

@@ -38,12 +38,20 @@ class Indicator extends Model
                 {
                     /** @var Metric $metric */
                     $metric = Metric::where('code', substr($key, 5, strlen($key)))->first();
+
                     $data = str_replace($key . '.value', $metric->calculate($componentId), $data);
+
                 }
             }
+            try
+            {
+                $result = JsonLogic::apply(json_decode($this->calculation_rule), json_decode($data));
+            } catch (\Exception $e)
+            {
+                Log::info($e->getMessage());
+                $result = 0;
 
-            $result = JsonLogic::apply(json_decode($this->calculation_rule), json_decode($data));
-
+            }
             $newIndicatorValue = new IndicatorValue();
             $newIndicatorValue->component_id = $componentId;
             $newIndicatorValue->indicator_id = $this->id;
@@ -51,7 +59,8 @@ class Indicator extends Model
             $newIndicatorValue->save();
 
 
-        }else{
+        } else
+        {
             $result = $indicatorValue->value;
         }
 
