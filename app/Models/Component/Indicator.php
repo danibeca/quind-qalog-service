@@ -19,7 +19,7 @@ class Indicator extends Model
     {
 
         $result = 0;
-        $indicatorValue = IndicatorValue::where('indicator_id', $this->id)->get()->first();
+        $indicatorValue = IndicatorValue::where('indicator_id', $this->id)->where('component_id', $componentId)->get()->first();
 
         if (! isset($indicatorValue))
         {
@@ -42,8 +42,6 @@ class Indicator extends Model
                 }
             }
 
-            Log::info($this->calculation_rule);
-            Log::info($this->calculation_rule);
             $result = JsonLogic::apply(json_decode($this->calculation_rule), json_decode($data));
 
             $newIndicatorValue = new IndicatorValue();
@@ -64,29 +62,4 @@ class Indicator extends Model
     {
         return Indicator::where('code', substr($key, 5, strlen($key)))->first();
     }
-    /*
-        public function calculateFromDB(Application $application, $date)
-        {
-            return $this->applications()
-                ->where($this->appIdField, $application->id)
-                ->wherePivot($this->registeredDateField, $date)
-                ->get()->first()
-                ->pivot->value;
-        }
-
-        public function saveIndicator(Application $application, $value)
-        {
-            $date = Carbon::now()->format('Y-m-d');
-            if ($this->hasRecordOnDate($application, $date))
-            {
-                $this->applications()->where($this->appIdField, $application->id)
-                    ->wherePivot($this->registeredDateField, $date)
-                    ->updateExistingPivot($application->id, [$this->valueField => $value, $this->registeredDateField => $date]);
-            } else
-            {
-                $this->applications()->save($application, [$this->valueField => $value, $this->registeredDateField => $date]);
-            }
-        }*/
-
-
 }

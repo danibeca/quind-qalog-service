@@ -5,7 +5,6 @@ namespace App\Models\QualitySystem;
 use App\Utils\Models\AttributeValue;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 use JWadhams\JsonLogic;
 
 class ExternalMetric extends Model
@@ -14,11 +13,13 @@ class ExternalMetric extends Model
 
     use AttributeValue;
 
-    public function calculate()
+    public function calculate($componentId)
     {
         $this->value = 0;
 
-        $extenalMetricValue = ExternalMetricValue::where('external_metric_id', $this->id)->get()->first();
+        $extenalMetricValue = ExternalMetricValue::where('external_metric_id', $this->id)
+            ->where('component_id', $componentId)
+            ->get()->first();
         if (isset($extenalMetricValue))
         {
             $this->value = $extenalMetricValue->value;
@@ -31,6 +32,7 @@ class ExternalMetric extends Model
             if (isset($pattern->search))
             {
                 $this->value = IssueValue::where('tags', 'like', '%' . $pattern->value . '%')
+                    ->where('component_id', $componentId)
                     ->count();
             } else
             {
@@ -43,6 +45,7 @@ class ExternalMetric extends Model
                 }
                 $this->value = IssueValue::where($query[0]['column'] ,$query[0]['value'])
                     ->where($query[1]['column'] ,$query[1]['value'])
+                    ->where('component_id', $componentId)
                     ->count();
             }
 

@@ -19,7 +19,8 @@ class CreateIssueValuesTable extends Migration
             $table->string('severity', 20)->nullable();
             $table->string('status', 20)->nullable();
             $table->mediumText('message')->nullable();
-            $table->string('effort', 20)->nullable();
+            $table->double('effort')->nullable();
+            $table->string('effortText',25)->nullable();
             $table->string('debt', 20)->nullable();
             $table->string('tags', 200)->nullable();
             $table->string('type', 200)->nullable();

@@ -43,6 +43,7 @@ class HTTPWrapper
 
     public function post($url, $data)
     {
+    //    Log::info($url);
 
         try
         {
@@ -50,10 +51,10 @@ class HTTPWrapper
 
         } catch (RequestException $e)
         {
-            //Report to Quind
+//            Log::info($e->getMessage());
         } catch (ServerException $e)
         {
-            //Report to Quind
+  //          Log::info($e->getMessage());
         }
     }
 

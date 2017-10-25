@@ -2,13 +2,9 @@
 
 namespace App\Models\Component;
 
-
-use App\Models\Component\MetricValue;
 use App\Models\QualitySystem\ExternalMetric;
-
-use App\Models\QualitySystem\ExternalMetricValue;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
+
 
 class Metric extends Model
 {
@@ -18,7 +14,9 @@ class Metric extends Model
     {
 
         $result = 0;
-        $metricValue = MetricValue::where('metric_id', $this->id)->get()->first();
+        $metricValue = MetricValue::where('metric_id', $this->id)
+            ->where('component_id', $componentId)
+            ->get()->first();
         if (! isset($metricValue))
         {
             $result = $this->calculateFromExternalMetric($componentId);
@@ -39,6 +37,6 @@ class Metric extends Model
         $systemId = Component::find($componentId)->qualitySystemInstance->qualitySystem->id;
         /** @var ExternalMetric $externalMetric */
         $externalMetric = ExternalMetric::where('metric_id', $this->id)->where('quality_system_id', $systemId)->get()->first();
-        return $externalMetric->calculate();
+        return $externalMetric->calculate($componentId);
     }
 }
