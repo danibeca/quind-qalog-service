@@ -6,6 +6,7 @@ namespace App\Models\Component;
 use App\Models\Component\Metric;
 use App\Utils\Models\Language\NameAttribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use JWadhams\JsonLogic;
 
 class Indicator extends Model
@@ -16,6 +17,7 @@ class Indicator extends Model
 
     public function calculate($componentId)
     {
+        Log::info($componentId);
 
         $data = $this->calculation_data;
 
@@ -28,14 +30,18 @@ class Indicator extends Model
             }
             if (str_contains($key, '@met_'))
             {
+                /** @var Metric $metric */
                 $metric = Metric::where('code', substr($key, 5, strlen($key)))->first();
-
                 $data = str_replace($key . '.value', $metric->calculate($componentId), $data);
             }
         }
+
+
         $value = JsonLogic::apply(json_decode($this->calculation_rule), json_decode($data));
 
-        //$this->saveIndicator($application, $value);
+        /*Log::info($this->name.'Value'.$value);
+*/
+        $this->save($componentId, $value);
         return $value;
     }
 

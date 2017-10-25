@@ -31,8 +31,7 @@ class Metric extends Model
         }else{
             $result = $metricValue->value;
         }
-        Log::info('ValueMetric'.$result);
-        //return $result->value;
+        return $result;
     }
 
     public function calculateFromExternalMetric($componentId)
@@ -41,6 +40,5 @@ class Metric extends Model
         /** @var ExternalMetric $externalMetric */
         $externalMetric = ExternalMetric::where('metric_id', $this->id)->where('quality_system_id', $systemId)->get()->first();
         return $externalMetric->calculate();
-
     }
 }

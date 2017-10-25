@@ -48,9 +48,10 @@ class Component extends Model
 
     public function calculateIndicators()
     {
-        /*foreach (Indicator::all()->sortBy('level') as $indicator){
+        /** @var Indicator $indicator */
+        foreach (Indicator::all()->sortBy('level') as $indicator){
             $indicator->calculate($this->id);
-        }*/
+        }
 
     }
 

@@ -26,7 +26,7 @@ class ComponentCalculation extends Command
         $instance->setLanguageId(1);
 
 
-        /*$mainComponentIds = ComponentTree::getRoots()->pluck('component_id');
+        $mainComponentIds = ComponentTree::getRoots()->pluck('component_id');
         foreach ($mainComponentIds as $mainComponentId){
             $node = ComponentTree::find($mainComponentId);
             $parent = Component::find($node->component_id);
@@ -35,17 +35,15 @@ class ComponentCalculation extends Command
             $analyzableComponents = $analyzableComponents->push($parent);
             $analyzableComponents = $analyzableComponents->diff($parent->getLeaves());
 
+            /** @var Component $analyzableComponent */
             foreach ($analyzableComponents as $analyzableComponent){
 
                 Log::info($analyzableComponent->calculateIndicators());
             }
 
-        }*/
-
-        foreach (Metric::all() as $metric){
-            Log::info($metric->calculate(3));
-
         }
+
+
 
 
     }

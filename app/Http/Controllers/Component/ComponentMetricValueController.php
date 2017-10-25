@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Component;
 
 
 
+use App\Models\Component\MetricValue;
 use App\Models\QualitySystem\ExternalMetricValue;
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Input;
@@ -14,6 +15,7 @@ class ComponentMetricValueController extends ApiController
     public function create($componentId)
     {
         ExternalMetricValue::where('component_id', $componentId)->delete();
+        MetricValue::where('component_id', $componentId)->delete();
 
         $metrics = Input::all();
 
