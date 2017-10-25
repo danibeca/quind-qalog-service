@@ -3,7 +3,7 @@
 namespace App\Models\Component;
 
 
-use Agilin\Models\QualitySystem\Metric\Metric;
+use App\Models\Component\Metric;
 use App\Utils\Models\Language\NameAttribute;
 use Illuminate\Database\Eloquent\Model;
 use JWadhams\JsonLogic;

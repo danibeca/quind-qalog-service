@@ -2,6 +2,7 @@
 
 namespace App\Models\QualitySystem;
 
+use App\Wrappers\QuindWrapper\HTTPWrapper;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\Eloquent\Model;
 use GuzzleHttp\Client;
@@ -11,15 +12,15 @@ class QualitySystemInstance extends Model
 
     public function qualitySystem()
     {
-        return  $this->belongsTo('\App\Models\QualitySystem\QualitySystem','quality_system_id');
+        return $this->belongsTo('\App\Models\QualitySystem\QualitySystem', 'quality_system_id');
     }
 
-    public static function verify($url)
+    public static function verify($url, $username, $password)
     {
-        $client = new Client();
+        $client = new HTTPWrapper($username, $password);
         try
         {
-            $client->get($url);
+            $client->get($url . '/api/resources');
 
         } catch (RequestException $e)
         {

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 
+use App\Models\Component\Metric;
 use App\Models\Component\Component;
 use App\Models\Component\ComponentTree;
 use App\Utils\Models\Language\SelectedLanguage;
@@ -25,8 +26,7 @@ class ComponentCalculation extends Command
         $instance->setLanguageId(1);
 
 
-
-        $mainComponentIds = ComponentTree::getRoots()->pluck('component_id');
+        /*$mainComponentIds = ComponentTree::getRoots()->pluck('component_id');
         foreach ($mainComponentIds as $mainComponentId){
             $node = ComponentTree::find($mainComponentId);
             $parent = Component::find($node->component_id);
@@ -39,6 +39,11 @@ class ComponentCalculation extends Command
 
                 Log::info($analyzableComponent->calculateIndicators());
             }
+
+        }*/
+
+        foreach (Metric::all() as $metric){
+            Log::info($metric->calculate(3));
 
         }
 

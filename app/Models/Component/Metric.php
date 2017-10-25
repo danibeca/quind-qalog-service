@@ -1,27 +1,40 @@
 <?php
 
-namespace Agilin\Models\QualitySystem\Metric;
+namespace App\Models\Component;
 
 
 use App\Models\Component\MetricValue;
-use App\Utils\Models\AttributeValue;
+use App\Models\QualitySystem\ExternalMetric;
+
+use App\Models\QualitySystem\ExternalMetricValue;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
-class Metric extends Model {
+class Metric extends Model
+{
 
-    protected $table = 'metric';
-    protected $appends = ['value'];
-    public $timestamps = false;
-
-    use AttributeValue;
 
     public function calculate($componentId)
     {
-        $result = MetricValue::where('metric_id', $this->id)->get->first();
-        if(!isset($result)){
-            $result  = $this->calculateFromExternalMetric($componentId);
-        }
 
-        return $result;
+        $result = 0;
+        $metricValue = MetricValue::where('metric_id', $this->id)->get()->first();
+        if (! isset($metricValue))
+        {
+            $result = $this->calculateFromExternalMetric($componentId);
+        }else{
+            $result = $metricValue->value;
+        }
+        Log::info('ValueMetric'.$result);
+        //return $result->value;
+    }
+
+    public function calculateFromExternalMetric($componentId)
+    {
+        $systemId = Component::find($componentId)->qualitySystemInstance->qualitySystem->id;
+        /** @var ExternalMetric $externalMetric */
+        $externalMetric = ExternalMetric::where('metric_id', $this->id)->where('quality_system_id', $systemId)->get()->first();
+        return $externalMetric->calculate();
+
     }
 }

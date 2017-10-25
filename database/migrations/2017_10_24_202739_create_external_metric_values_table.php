@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMetricValuesTable extends Migration
+class CreateExternalMetricValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateMetricValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('metric_values', function (Blueprint $table) {
+        Schema::create('external_metric_values', function (Blueprint $table) {
             $table->integer('component_id')->unsigned();
-            $table->integer('metric_id')->unsigned();
-            $table->string('code', 100);
+            $table->integer('external_metric_id')->unsigned();
             $table->double('value');
             $table->timestamps();
         });
@@ -29,6 +28,6 @@ class CreateMetricValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('metric_values');
+        Schema::dropIfExists('external_metric_values');
     }
 }

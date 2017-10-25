@@ -123,7 +123,7 @@ class QualitySystemInstanceController extends ApiController
 
     public function verify()
     {
-        return $this->respond(QualitySystemInstance::verify(Input::get('url')));
+        return $this->respond(QualitySystemInstance::verify(Input::get('url'), Input::get('username'), Input::get('password')));
     }
 
 

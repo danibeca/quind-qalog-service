@@ -3,7 +3,6 @@
 namespace App\Models\Component;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 
 class Component extends Model
 {
@@ -49,9 +48,9 @@ class Component extends Model
 
     public function calculateIndicators()
     {
-        foreach (Indicator::all()->sortBy('level') as $indicator){
+        /*foreach (Indicator::all()->sortBy('level') as $indicator){
             $indicator->calculate($this->id);
-        }
+        }*/
 
     }
 
