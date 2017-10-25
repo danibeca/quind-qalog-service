@@ -57,6 +57,7 @@ $router->group([
         $router->get('/{id:[\d]+}', ['uses' => 'QualitySystemInstanceController@show']);
         $router->get('/verify', ['uses' => 'QualitySystemInstanceController@verify']);
         $router->post('/', ['uses' => 'QualitySystemInstanceController@store']);
+        $router->put('/{id:[\d]+}', ['uses' => 'QualitySystemInstanceController@update']);
     });
 
     $router->group([
