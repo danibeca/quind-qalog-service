@@ -17,32 +17,47 @@ class Indicator extends Model
 
     public function calculate($componentId)
     {
-        Log::info($componentId);
 
-        $data = $this->calculation_data;
+        $result = 0;
+        $indicatorValue = IndicatorValue::where('indicator_id', $this->id)->get()->first();
 
-        foreach (json_decode($data) as $key => $attribute)
+        if (! isset($indicatorValue))
         {
-            if (str_contains($key, '@ind_'))
+
+
+            $data = $this->calculation_data;
+
+            foreach (json_decode($data) as $key => $attribute)
             {
-                $subIndicator = $this->getDependencyByKey($key);
-                $data = str_replace($key . '.value', $subIndicator->calculate($componentId), $data);
+                if (str_contains($key, '@ind_'))
+                {
+                    $subIndicator = $this->getDependencyByKey($key);
+                    $data = str_replace($key . '.value', $subIndicator->calculate($componentId), $data);
+                }
+                if (str_contains($key, '@met_'))
+                {
+                    /** @var Metric $metric */
+                    $metric = Metric::where('code', substr($key, 5, strlen($key)))->first();
+                    $data = str_replace($key . '.value', $metric->calculate($componentId), $data);
+                }
             }
-            if (str_contains($key, '@met_'))
-            {
-                /** @var Metric $metric */
-                $metric = Metric::where('code', substr($key, 5, strlen($key)))->first();
-                $data = str_replace($key . '.value', $metric->calculate($componentId), $data);
-            }
+
+            Log::info($this->calculation_rule);
+            Log::info($this->calculation_rule);
+            $result = JsonLogic::apply(json_decode($this->calculation_rule), json_decode($data));
+
+            $newIndicatorValue = new IndicatorValue();
+            $newIndicatorValue->component_id = $componentId;
+            $newIndicatorValue->indicator_id = $this->id;
+            $newIndicatorValue->value = $result;
+            $newIndicatorValue->save();
+
+
+        }else{
+            $result = $indicatorValue->value;
         }
 
-
-        $value = JsonLogic::apply(json_decode($this->calculation_rule), json_decode($data));
-
-        /*Log::info($this->name.'Value'.$value);
-*/
-        $this->save($componentId, $value);
-        return $value;
+        return $result;
     }
 
     public function getDependencyByKey($key)

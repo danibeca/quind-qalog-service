@@ -103,7 +103,7 @@ class QualitySystemInstanceController extends ApiController
             $qsi->url = $request->url;
             $qsi->type = $request->type;
             $qsi->verified = $verified;
-            $qsi->component_owner_id = $request->component_id;
+
             if ($request->has('username'))
             {
                 $qsi->username = $request->username;
