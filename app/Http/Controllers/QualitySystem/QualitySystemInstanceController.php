@@ -66,7 +66,7 @@ class QualitySystemInstanceController extends ApiController
 
         $verified = ($request->has('verified')) ? $request->verified : false;
         $qsi = new QualitySystemInstance();
-        $qsi->quality_system_id = $request->id;
+        $qsi->quality_system_id = $request->quality_system_id;
         $qsi->url = $request->url;
         $qsi->type = $request->type;
         $qsi->verified = $verified;
@@ -99,7 +99,7 @@ class QualitySystemInstanceController extends ApiController
         if (isset($qsi))
         {
             $verified = ($request->has('verified')) ? $request->verified : false;
-            $qsi->quality_system_id = $request->id;
+            $qsi->quality_system_id = $request->quality_system_id;
             $qsi->url = $request->url;
             $qsi->type = $request->type;
             $qsi->verified = $verified;
