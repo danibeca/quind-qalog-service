@@ -21,6 +21,8 @@ class ComponentController extends ApiController
         {
             $newComponentTree->component_id = $newComponent->id;
             $newComponentTree->appendToNode(ComponentTree::where('component_id', $request->parent_id)->first())->save();
+
+            /** @var Component $root */
             $root = Component::find(ComponentTree::where('component_id', $request->parent_id)
                 ->get()->first()->getRoot()->component_id);
             $root->run_client = true;
