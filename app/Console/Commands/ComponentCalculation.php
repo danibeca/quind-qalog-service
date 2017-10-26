@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 
 use App\Models\Component\Indicator;
 use App\Models\Component\IndicatorValue;
-use App\Models\Component\Metric;
+
 use App\Models\Component\Component;
 use App\Models\Component\ComponentTree;
 use App\Models\QualitySystem\IssueValue;
@@ -40,6 +40,7 @@ class ComponentCalculation extends Command
                     ->orWhere('last_run_quind', '<=', Carbon::now()->subHours(12));
             })->get()->pluck('id');
 
+        Log::info(json_encode($mainComponentIds));
         foreach ($mainComponentIds as $mainComponentId)
         {
             /** @var ComponentTree $node */
@@ -68,6 +69,8 @@ class ComponentCalculation extends Command
 
     public function sendIndicators(Component $analyzableComponent, $qastaURL)
     {
+
+
         $analyzableComponent->calculateIndicators();
 
         $values = IndicatorValue::where('component_id', $analyzableComponent->id)->get();

@@ -39,36 +39,6 @@ class CreateIndicatorsTable extends Migration
                 ),
 
                 array(
-                    'id'               => 2,
-                    'tmpname'          => 'Indicador de Complejidad funcional',
-                    'code'             => 'function_complexity',
-                    'level'            => 1,
-                    'calculation_rule' => '{ "var" : ["@met_function_complexity"] }',
-                    'calculation_data' => '{ "@met_function_complexity" : "@met_function_complexity.value" }',
-                    'lr_name'          => null,
-                ),
-
-                array(
-                    'id'               => 3,
-                    'tmpname'          => 'Indicador de lineas duplicadas',
-                    'code'             => 'duplicated_lines',
-                    'level'            => 1,
-                    'calculation_rule' => '{ "var" : ["@met_duplicated_lines"] }',
-                    'calculation_data' => '{ "@met_duplicated_lines" : "@met_duplicated_lines.value" }',
-                    'lr_name'          => null,
-                ),
-
-                array(
-                    'id'               => 4,
-                    'tmpname'          => 'Indicador de deuda tecnica',
-                    'code'             => 'technical_debt',
-                    'level'            => 1,
-                    'calculation_rule' => '{ "var" : ["@met_technical_debt"] }',
-                    'calculation_data' => '{ "@met_technical_debt" : "@met_technical_debt.value" }',
-                    'lr_name'          => null,
-                ),
-
-                array(
                     'id'               => 5,
                     'tmpname'          => 'Blocker bug',
                     'code'             => 'blocker_bug',
