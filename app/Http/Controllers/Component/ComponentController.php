@@ -7,6 +7,7 @@ use App\Models\Component\Component;
 use App\Models\Component\ComponentTree;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 
 class ComponentController extends ApiController
 {
@@ -20,6 +21,10 @@ class ComponentController extends ApiController
         {
             $newComponentTree->component_id = $newComponent->id;
             $newComponentTree->appendToNode(ComponentTree::where('component_id', $request->parent_id)->first())->save();
+            $root = Component::find(ComponentTree::where('component_id', $request->parent_id)
+                ->get()->first()->getRoot()->component_id);
+            $root->run_client = true;
+            $root->save();
 
         } else
         {
@@ -29,12 +34,8 @@ class ComponentController extends ApiController
 
         ComponentTree::fixTree();
 
-        $root = Component::find($newComponentTree->getRoot()->component_id);
-        $root->run_client = true;
-        $root->save();
 
         return $this->respondResourceCreated();
-
     }
 
 }
