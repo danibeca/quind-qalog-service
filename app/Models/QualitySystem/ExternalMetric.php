@@ -5,6 +5,7 @@ namespace App\Models\QualitySystem;
 use App\Utils\Models\AttributeValue;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use JWadhams\JsonLogic;
 
 class ExternalMetric extends Model
@@ -51,12 +52,12 @@ class ExternalMetric extends Model
 
         }
 
-        return $this->normalize();
+        return $this->normalize($componentId);
 
 
     }
 
-    public function normalize()
+    public function normalize($componentId)
     {
         $data = $this->normalization_data;
         foreach (json_decode($data) as $key => $attribute)
@@ -69,7 +70,7 @@ class ExternalMetric extends Model
             {
                 /** @var ExternalMetric $metricDependency */
                 $metricDependency = ExternalMetric::where('code', substr($key, 5, strlen($key)))->first();
-                $data = str_replace($key . '.value', $metricDependency->calculate(), $data);
+                $data = str_replace($key . '.value', $metricDependency->calculate($componentId), $data);
             }
         }
 

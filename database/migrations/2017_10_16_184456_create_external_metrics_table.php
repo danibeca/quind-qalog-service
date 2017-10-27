@@ -941,6 +941,7 @@ class CreateExternalMetricsTable extends Migration
                     'pattern'            => null,
                 ),
 
+
                 array(
                     'id'                 => 77,
                     'quality_system_id'  => 1,
@@ -965,6 +966,32 @@ class CreateExternalMetricsTable extends Migration
                     'level'              => 1,
                     'type'               => 1,
                     'pattern'            => '',
+                ),
+
+                array(
+                    'id'                 => 79,
+                    'quality_system_id'  => 1,
+                    'code'               => 'covered_lines',
+                    'normalization_rule' => '{"*":[{ "var" : ["@ext_ncloc" ]},{"var" : ["@ext_coverage" ]} ]}',
+                    'normalization_data' => '{"@ext_ncloc" : "@ext_ncloc.value" ,  "@ext_coverage" : "@ext_coverage.value"}',
+                    'description'        => null,
+                    'metric_id'          => 40,
+                    'level'              => 2,
+                    'type'               => 1,
+                    'pattern'            => null,
+                ),
+
+                array(
+                    'id'                 => 80,
+                    'quality_system_id'  => 2,
+                    'code'               => 'covered_lines',
+                    'normalization_rule' => '{"*":[{ "var" : ["@ext_ncloc" ]},{"var" : ["@ext_coverage" ]} ]}',
+                    'normalization_data' => '{"@ext_ncloc" : "@ext_ncloc.value" ,  "@ext_coverage" : "@ext_coverage.value"}',
+                    'description'        => null,
+                    'metric_id'          => 40,
+                    'level'              => 2,
+                    'type'               => 1,
+                    'pattern'            => null,
                 ),
             )
         );

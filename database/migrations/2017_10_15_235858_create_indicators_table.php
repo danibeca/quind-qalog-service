@@ -373,8 +373,8 @@ class CreateIndicatorsTable extends Migration
                     'tmpname'          => 'Coverage',
                     'code'             => 'coverage',
                     'level'            => 1,
-                    'calculation_rule' => '{ "var" : ["@met_coverage"] }',
-                    'calculation_data' => '{ "@met_coverage" : "@met_coverage.value" }',
+                    'calculation_rule' => '{"/":[{ "var" : ["@met_covered_lines"] },{ "var" : ["@met_lines_of_code"] }]}',
+                    'calculation_data' => '{ "@met_covered_lines" : "@met_covered_lines.value" ,  "@met_lines_of_code" : "@met_lines_of_code.value"}',
                     'lr_name'          => null,
                 ),
 

@@ -14,7 +14,9 @@ class ExternalMetricController extends ApiController
     {
         if (Input::has('qualitySystem'))
         {
-            return $this->respond(QualitySystem::find(Input::get('qualitySystem'))->metrics()->get());
+            return $this->respond(QualitySystem::find(Input::get('qualitySystem'))
+                ->metrics()
+                ->get()->where('type',1)->where('level',1));
         }
 
     }

@@ -238,6 +238,11 @@ class CreateMetricsTable extends Migration
                     'name' => 'Duplicated blocks',
                     'code' => 'duplicated_blocks',
                 ),
+                array(
+                    'id'   => 40,
+                    'name' => 'Covered Lines',
+                    'code' => 'covered_lines',
+                )
             )
         );
 
