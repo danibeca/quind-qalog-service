@@ -35,7 +35,7 @@ class APIClientComponentController extends ApiController
                 })->get();
             foreach ($roots as $root)
             {
-                $root->run_client = 0;
+                $root->run_client = false;
                 $root->save();
             }
 
