@@ -41,8 +41,10 @@ class QualitySystemInstance extends Model
         Log::info('Hplio TIpy'. $this->type);
         if ($this->type == 2)
         {
+            Log::info('Hplio ID'. $this->id);
+        //    Log::info(json_encode($resources));
             $resources = QualitySystemInstanceResource::where('quality_system_instance_id', $this->id)->get()->toArray();
-            Log::info(json_encode($resources));
+
             return $resources;
 
         } else
