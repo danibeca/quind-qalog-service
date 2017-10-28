@@ -7,6 +7,7 @@ use App\Models\Component\Component;
 use App\Models\Component\ComponentTree;
 use App\Utils\Transformers\SimpleComponentTransformer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 
 class ComponentController extends ApiController
