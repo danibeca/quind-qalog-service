@@ -5,12 +5,45 @@ namespace App\Http\Controllers\Component;
 use App\Http\Controllers\ApiController;
 use App\Models\Component\Component;
 use App\Models\Component\ComponentTree;
+use App\Utils\Transformers\SimpleComponentTransformer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Log;
+
 
 class ComponentController extends ApiController
 {
+
+    public function index()
+    {
+        if (Input::has('parent_id'))
+        {
+            /** @var ComponentTree $node */
+            $node = ComponentTree::find(Input::get('parent_id'));
+
+            /** @var Component $parent */
+            $parent = Component::find($node->component_id);
+            $ids = $node->getDescendants()->pluck('component_id');
+            /** @var Component $result */
+            $result = Component::whereIn('id', $ids)->get();
+            if (Input::has('self_included') && Input::get('self_included'))
+            {
+                $result = $result->push($parent);
+            }
+
+            if (Input::has('no_leaves'))
+            {
+                $result = $result->diff($parent->getLeaves());
+            }
+
+            if (Input::has('only_leaves'))
+            {
+                $result = Component::find(Input::get('parent_id'))->getLeaves();
+            }
+
+            return $this->respondData((new SimpleComponentTransformer())->transformCollection(array_values($result->sortBy('tag_id')->toArray())));
+        }
+
+        return $this->respondNotFound();
+    }
 
     public function store(Request $request)
     {

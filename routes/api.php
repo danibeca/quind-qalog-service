@@ -11,7 +11,7 @@
 |
 */
 $router->group([
-    'prefix' => 'api/v1', 'middleware' => ['cors', 'log','lang']], function () use ($router) {
+    'prefix' => 'api/v1', 'middleware' => ['cors', 'log', 'lang']], function () use ($router) {
 
 
     $router->group([
@@ -19,6 +19,7 @@ $router->group([
         'namespace' => 'Component'], function () use ($router) {
 
         $router->post('/', ['uses' => 'ComponentController@store']);
+        $router->get('/', ['uses' => 'ComponentController@index']);
 
         $router->get('/{id:[\d]+}/leaves', ['uses' => 'ComponentLeafController@index']);
 
@@ -26,7 +27,6 @@ $router->group([
         $router->post('/{id:[\d]+}/issue-values', ['uses' => 'ComponentIssueValueController@create']);
 
         $router->get('/{id:[\d]+}/quality-system-instances', ['uses' => 'ComponentQualitySystemController@index']);
-        //$router->post('/{id:[\d]+}/qas', ['uses' => 'ComponentQualitySystemController@store']);
     });
 
     $router->group([
