@@ -84,6 +84,11 @@ class ComponentController extends ApiController
         if (! $componentTree->isRoot())
         {
             $component->update($request->all());
+            if($request->parent_id){
+                $componentTree->parent_id = $request->parent_id;
+                $componentTree->save();
+                ComponentTree::fixTree();
+            }
         }
 
         return $this->respond('OK');
