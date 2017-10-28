@@ -19,7 +19,7 @@ class APIClientComponentController extends ApiController
         $client = APIClient::where('code', $code)->get()->first();
         if (isset($client))
         {
-            $qualitySystemInstance = QualitySystemInstance::where('api_client_id', $client->id)->get->first();
+            $qualitySystemInstance = QualitySystemInstance::where('api_client_id', $client->id)->get()->first();
             if (! $qualitySystemInstance->verified)
             {
                 $qualitySystemInstance->verified = true;
