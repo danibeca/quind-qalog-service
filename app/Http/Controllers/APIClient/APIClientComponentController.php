@@ -27,14 +27,19 @@ class APIClientComponentController extends ApiController
             }
 
             $ownerIds = $client->qualitySystemInstances()->get()->pluck('component_owner_id');
-            $rootIds = Component::
+            $roots = Component::
             whereIn('id', $ownerIds)
                 ->Where(function ($query) {
                     $query->where('run_client', 1)
                         ->orWhere('last_run_client', '<=', Carbon::now()->subHours(12));
-                })->get()->pluck('id');
+                })->get();
+            foreach ($roots as $root)
+            {
+                $root->run_client = 0;
+                $root->save();
+            }
 
-            return $this->respond($rootIds);
+            return $this->respond($roots->pluck('id'));
         }
 
         return $this->respondNotFound();
