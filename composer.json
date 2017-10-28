@@ -12,7 +12,8 @@
         "illuminate/routing": "5.5.*",
         "kalnoy/nestedset": "^4.3",
         "guzzlehttp/guzzle": "^6.3",
-        "jwadhams/json-logic-php": ">=1.0.0"
+        "jwadhams/json-logic-php": ">=1.0.0",
+        "chumper/zipper": "1.0.x"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

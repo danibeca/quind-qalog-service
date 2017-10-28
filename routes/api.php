@@ -28,6 +28,9 @@ $router->group([
         $router->post('/{id:[\d]+}/issue-values', ['uses' => 'ComponentIssueValueController@create']);
 
         $router->get('/{id:[\d]+}/quality-system-instances', ['uses' => 'ComponentQualitySystemController@index']);
+
+        $router->get('/{id:[\d]+}/docker', ['uses' => 'DockerComposeController@index']);
+
     });
 
     $router->group([
@@ -66,6 +69,8 @@ $router->group([
         'namespace' => 'APIClient'], function () use ($router) {
         $router->get('/{code}/roots', ['uses' => 'APIClientComponentController@index']);
         $router->post('/{id:[\d]+}/roots', ['uses' => 'APIClientComponentController@update']);
+
+
     });
 });
 
