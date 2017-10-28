@@ -20,6 +20,7 @@ $router->group([
 
         $router->post('/', ['uses' => 'ComponentController@store']);
         $router->get('/', ['uses' => 'ComponentController@index']);
+        $router->put('/{id:[\d]+}', ['uses' => 'ComponentController@update']);
 
         $router->get('/{id:[\d]+}/leaves', ['uses' => 'ComponentLeafController@index']);
 
