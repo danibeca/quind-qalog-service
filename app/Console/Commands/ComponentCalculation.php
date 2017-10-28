@@ -43,9 +43,13 @@ class ComponentCalculation extends Command
 
         foreach ($mainComponentIds as $mainComponentId)
         {
+
             /** @var ComponentTree $node */
             $node = ComponentTree::where('component_id', $mainComponentId)->get()->first();
             $parent = Component::find($mainComponentId);
+            $parent->last_run_quind = Carbon::now();
+            $parent->run_quind = false;
+            $parent->save();
             $ids = $node->getDescendants()->pluck('component_id');
             $analyzableComponents = Component::whereIn('id', $ids)->get();
             $analyzableComponents = $analyzableComponents->push($parent);
@@ -57,10 +61,6 @@ class ComponentCalculation extends Command
                 $this->sendQA($analyzableComponent, $qastaURL);
                 $this->sendInfo($analyzableComponent, $qastaURL);
             }
-
-            $parent->last_run_quind = Carbon::now();
-            $parent->run_quind = false;
-            $parent->save();
 
         }
 
