@@ -22,7 +22,8 @@ class QualitySystemInstance extends Model
         try
         {
             $resources = $client->get($url . '/api/resources');
-            if(empty($resources)){
+            if (empty($resources))
+            {
                 return false;
             }
 
@@ -37,17 +38,24 @@ class QualitySystemInstance extends Model
 
     public function getResources()
     {
-        $client = new Client();
-        $url = $this->url . '/api/resources';
-        try
+        if ($this->type === 2)
         {
-            return collect(json_decode($client->get($url)->getBody()->getContents()))->map(function ($item, $key) {
-                return ['key' => $item->key, 'name' => $item->name];
-            });
+            return QualitySystemInstanceResource::where('quality_system_instance_id', $this->id)->get()->toArray();
+        } else
+        {
 
-        } catch (RequestException $e)
-        {
-            return [];
+            $client = new Client();
+            $url = $this->url . '/api/resources';
+            try
+            {
+                return collect(json_decode($client->get($url)->getBody()->getContents()))->map(function ($item, $key) {
+                    return ['key' => $item->key, 'name' => $item->name];
+                });
+
+            } catch (RequestException $e)
+            {
+                return [];
+            }
         }
     }
 
