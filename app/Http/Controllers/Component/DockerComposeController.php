@@ -47,9 +47,9 @@ class DockerComposeController extends ApiController
 
 
         $files = glob($destinationDir . '/*');
-        App::make('zipper')->make($destinationDir . '/quid-docker.zip')->add($files)->close();
+        App::make('zipper')->make($destinationDir . '/quind-docker.zip')->add($files)->close();
 
-        return Response::download($destinationDir . '/quid-docker.zip');
+        return Response::download($destinationDir . '/quind-docker.zip');
 
     }
 
