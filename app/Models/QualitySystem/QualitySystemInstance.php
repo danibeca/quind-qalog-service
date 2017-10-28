@@ -6,6 +6,7 @@ use App\Wrappers\QuindWrapper\HTTPWrapper;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\Eloquent\Model;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 
 class QualitySystemInstance extends Model
 {
@@ -20,7 +21,10 @@ class QualitySystemInstance extends Model
         $client = new HTTPWrapper($username, $password);
         try
         {
-            $client->get($url . '/api/resources');
+            $resources = $client->get($url . '/api/resources');
+            if(empty($resources)){
+                return false;
+            }
 
         } catch (RequestException $e)
         {
