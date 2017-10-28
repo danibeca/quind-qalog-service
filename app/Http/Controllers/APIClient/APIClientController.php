@@ -34,7 +34,12 @@ class APIClientController extends ApiController
                 {
                     $resourceCount = QualitySystemInstanceResource::where('quality_system_instance_id', $qualitySystemInstance->id)->count();
                     $resourceCount = ($resourceCount === 0)? 1 : $resourceCount;
-                    return $this->respond(['check' => $resourceCount,'url' => $qualitySystemInstance->url ]);
+                    return $this->respond(['check' => $resourceCount,
+                                           'url' => $qualitySystemInstance->url,
+                                           'username' => $qualitySystemInstance->username,
+                                           'password' => $qualitySystemInstance->password
+
+                    ]);
                 }
             }
 
