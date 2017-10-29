@@ -33,6 +33,7 @@ class APIClientComponentController extends ApiController
                     $query->where('run_client', 1)
                         ->orWhere('last_run_client', '<=', Carbon::now()->subHours(12));
                 })->get();
+
             foreach ($roots as $root)
             {
                 $root->run_client = 2;

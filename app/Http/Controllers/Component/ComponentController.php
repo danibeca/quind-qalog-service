@@ -59,9 +59,11 @@ class ComponentController extends ApiController
             /** @var Component $root */
             $root = Component::find(ComponentTree::where('component_id', $request->parent_id)
                 ->get()->first()->getRoot()->component_id);
-            if($root->run_client === 2){
+            if ($root->run_client === 2 || $root->run_quind === 2 || $root->run_quind === 1)
+            {
                 $root->run_client = 3;
-            }else{
+            } else
+            {
                 $root->run_client = 1;
             }
 
@@ -89,7 +91,8 @@ class ComponentController extends ApiController
         if (! $componentTree->isRoot())
         {
             $component->update($request->all());
-            if($request->parent_id){
+            if ($request->parent_id)
+            {
                 $componentTree->parent_id = $request->parent_id;
                 $componentTree->save();
                 ComponentTree::fixTree();
