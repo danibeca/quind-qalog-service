@@ -94,4 +94,26 @@ class ComponentController extends ApiController
         return $this->respond('OK');
     }
 
+    public function destroy($id)
+    {
+        /** @var Component $component */
+        $component = Component::find($id);
+        /** @var ComponentTree $componentTree */
+        $componentTree = ComponentTree::where('component_id', $component->id)->get()->first();
+        if (! $componentTree->isRoot())
+        {
+            $children = $componentTree->getDescendants();
+            $parent_id = $componentTree->parent_id;
+            foreach ($children as $child)
+            {
+                $child->parent_id = $parent_id;
+                $child->save();
+            }
+            Component::find($id)->delete();
+            ComponentTree::fixTree();
+        }
+
+        return $this->respondResourceDeleted();
+    }
+
 }

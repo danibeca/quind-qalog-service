@@ -18,9 +18,10 @@ $router->group([
         'prefix'    => '/components',
         'namespace' => 'Component'], function () use ($router) {
 
-        $router->post('/', ['uses' => 'ComponentController@store']);
         $router->get('/', ['uses' => 'ComponentController@index']);
+        $router->post('/', ['uses' => 'ComponentController@store']);
         $router->put('/{id:[\d]+}', ['uses' => 'ComponentController@update']);
+        $router->delete('/{id:[\d]+}', ['uses' => 'ComponentController@destroy']);
 
         $router->get('/{id:[\d]+}/leaves', ['uses' => 'ComponentLeafController@index']);
 
