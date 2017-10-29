@@ -44,12 +44,11 @@ class QualitySystemInstance extends Model
 
         } else
         {
-
-            $client = new Client();
+            $wrapper = new HTTPWrapper($this->username, $this->password);
             $url = $this->url . '/api/resources';
             try
             {
-                return collect(json_decode($client->get($url)->getBody()->getContents()))->map(function ($item, $key) {
+                return collect($wrapper->get($url))->map(function ($item) {
                     return ['key' => $item->key, 'name' => $item->name];
                 });
 

@@ -42,6 +42,7 @@ class QualitySystemInstanceController extends ApiController
 
     public function show($instanceId)
     {
+
         $qa = QualitySystemInstance::find($instanceId);
         if (Input::has('resources'))
         {
