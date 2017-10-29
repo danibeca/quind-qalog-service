@@ -18,6 +18,9 @@ class CreateExternalMetricValuesTable extends Migration
             $table->integer('external_metric_id')->unsigned();
             $table->double('value');
             $table->timestamps();
+
+            $table->index(['component_id','external_metric_id']);
+            $table->foreign('component_id', 'fk_external_metric_component')->references('id')->on('components')->onDelete('cascade');
         });
     }
 

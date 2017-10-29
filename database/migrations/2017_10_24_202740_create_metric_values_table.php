@@ -20,6 +20,9 @@ class CreateMetricValuesTable extends Migration
             $table->integer('metric_id')->unsigned();
             $table->double('value');
             $table->timestamps();
+
+            $table->index(['component_id','metric_id']);
+            $table->foreign('component_id', 'fk_metric_component')->references('id')->on('components')->onDelete('cascade');
         });
     }
 

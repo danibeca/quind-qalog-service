@@ -27,6 +27,8 @@ class CreateIssueValuesTable extends Migration
             $table->date('creationDate')->nullable();
             $table->date('updateDate')->nullable();
             $table->timestamps();
+
+            $table->foreign('component_id')->references('id')->on('components')->onDelete('cascade');
         });
 
     }
