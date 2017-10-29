@@ -20,7 +20,7 @@ class APIClientComponentController extends ApiController
         if (isset($client))
         {
             $qualitySystemInstance = QualitySystemInstance::where('api_client_id', $client->id)->get()->first();
-            if (! $qualitySystemInstance->verified)
+            if ($qualitySystemInstance && ! $qualitySystemInstance->verified)
             {
                 $qualitySystemInstance->verified = true;
                 $qualitySystemInstance->save();
