@@ -16,8 +16,8 @@ class AddLastRunClientToComponentTable extends Migration
         Schema::table('components', function (Blueprint $table) {
             $table->dateTime('last_run_client');
             $table->dateTime('last_run_quind');
-            $table->boolean('run_client')->default(true);
-            $table->boolean('run_quind')->default(true);
+            $table->integer('run_client');
+            $table->integer('run_quind');
         });
     }
 

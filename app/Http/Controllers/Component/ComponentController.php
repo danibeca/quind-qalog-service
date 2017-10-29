@@ -59,7 +59,12 @@ class ComponentController extends ApiController
             /** @var Component $root */
             $root = Component::find(ComponentTree::where('component_id', $request->parent_id)
                 ->get()->first()->getRoot()->component_id);
-            $root->run_client = true;
+            if($root->run_client === 2){
+                $root->run_client = 3;
+            }else{
+                $root->run_client = 1;
+            }
+
             $root->save();
 
         } else

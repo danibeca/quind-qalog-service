@@ -35,7 +35,7 @@ class APIClientComponentController extends ApiController
                 })->get();
             foreach ($roots as $root)
             {
-                $root->run_client = false;
+                $root->run_client = 2;
                 $root->save();
             }
 
@@ -51,8 +51,10 @@ class APIClientComponentController extends ApiController
         if (isset($component))
         {
             $component->last_run_client = Carbon::now();
-            $component->run_client = false;
-            $component->run_quind = true;
+            if($component->run_client === 2){
+                $component->run_client = 0;
+            }
+            $component->run_quind = 1;
             $component->save();
 
         }
