@@ -72,8 +72,6 @@ $router->group([
         $router->post('/{id:[\d]+}/roots', ['uses' => 'APIClientComponentController@update']);
         $router->get('/{code}', ['uses' => 'APIClientController@show']);
         $router->post('/{code}/resources', ['uses' => 'APIClientResourceController@store']);
-
-
     });
 });
 

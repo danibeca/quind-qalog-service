@@ -13,7 +13,6 @@ class ComponentLeafController extends ApiController
 {
     public function index($componentId)
     {
-        ComponentTree::fixTree();
         $component = Component::find($componentId);
 
         return $this->respondStandard((New ComponentTransformer())
