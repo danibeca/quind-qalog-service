@@ -2,6 +2,7 @@
 
 namespace App\Models\QualitySystem;
 
+use App\Models\Component\Component;
 use App\Wrappers\QuindWrapper\HTTPWrapper;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\Eloquent\Model;
@@ -38,9 +39,10 @@ class QualitySystemInstance extends Model
 
     public function getResources()
     {
+        $result = [];
         if ($this->type == 2)
         {
-            return QualitySystemInstanceResource::where('quality_system_instance_id', $this->id)->get()->toArray();
+            $result = QualitySystemInstanceResource::where('quality_system_instance_id', $this->id)->get()->toArray();
 
         } else
         {
@@ -48,15 +50,47 @@ class QualitySystemInstance extends Model
             $url = $this->url . '/api/resources';
             try
             {
-                return collect($wrapper->get($url))->map(function ($item) {
+                $result = collect($wrapper->get($url))->map(function ($item) {
                     return ['key' => $item->key, 'name' => $item->name];
-                });
+                })->toArray();
 
             } catch (RequestException $e)
             {
                 return [];
             }
         }
+
+        $usedResourceKeys = Component::where('quality_system_instance_id', $this->id)->get()->pluck('app_code')->toArray();
+
+        return $this->removeUsedResources($result, $usedResourceKeys);
+
+    }
+
+    public function removeUsedResources($resources, $usedResourceKeys)
+    {
+        return array_values(array_udiff($resources, $usedResourceKeys,
+            function ($obj_a, $obj_b) {
+                $a = '';
+                $b = '';
+                if (isset($obj_a['key']))
+                {
+                    $a = $obj_a['key'];
+                } else
+                {
+                    $a = $obj_a;
+                }
+
+                if (isset($obj_b['key']))
+                {
+                    $b = $obj_b['key'];
+                } else
+                {
+                    $b = $obj_b;
+                }
+
+                return strcmp($a, $b);
+            }
+        ));
     }
 
 
