@@ -38,6 +38,9 @@ class DockerComposeController extends ApiController
             ->get()->first()->api_client_id)->code;
 
         $data_to_write = 'QUIND_ENDPOINT=' . env('QUIND_CLIENT_ENDPOINT') ."\n".
+            'QOAUTH_SERVER=' . env('QOAUTH_SERVER') ."\n".
+            'QOAUTH_CLIENT=' . env('QOAUTH_CLIENT_CLI') ."\n".
+            'QOAUTH_SECRET=' . env('QOAUTH_SECRET_CLI') ."\n".
             'CLIENT_CODE=' . $code;
         $file_path = $destinationDir . '/quinddocker/php-fpm/quind.conf';
 

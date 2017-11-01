@@ -3,11 +3,9 @@
 namespace App\Models\QualitySystem;
 
 use App\Models\Component\Component;
-use App\Wrappers\QuindWrapper\HTTPWrapper;
+use App\Utils\Wrappers\HTTPWrapper;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\Eloquent\Model;
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Log;
 
 class QualitySystemInstance extends Model
 {

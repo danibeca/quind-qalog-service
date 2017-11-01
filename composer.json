@@ -13,7 +13,8 @@
         "kalnoy/nestedset": "^4.3",
         "guzzlehttp/guzzle": "^6.3",
         "jwadhams/json-logic-php": ">=1.0.0",
-        "chumper/zipper": "1.0.x"
+        "chumper/zipper": "1.0.x",
+        "lcobucci/jwt": "^3.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
