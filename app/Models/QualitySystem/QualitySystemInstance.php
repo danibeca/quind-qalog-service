@@ -58,6 +58,14 @@ class QualitySystemInstance extends Model
             }
         }
 
+        return $result;
+
+    }
+
+    public function getNoUsedResources()
+    {
+        $result = $this->getResources();
+
         $usedResourceKeys = Component::where('quality_system_instance_id', $this->id)->get()->pluck('app_code')->toArray();
 
         return $this->removeUsedResources($result, $usedResourceKeys);

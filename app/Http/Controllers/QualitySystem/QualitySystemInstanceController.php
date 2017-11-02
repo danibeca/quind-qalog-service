@@ -17,6 +17,19 @@ class QualitySystemInstanceController extends ApiController
     public function index()
     {
         $result = collect();
+        if (Input::has('component_id') && Input::has('with_no_used_resources'))
+        {
+            $instances = QualitySystemInstance::with('qualitySystem')
+                ->where('component_owner_id', Input::get('component_id'))->get();
+            foreach ($instances as $instance)
+            {
+                $instance->resources = $instance->getNoUsedResources();
+                $result->push($instance);
+            }
+
+            return $this->respondData($result);
+        }
+
         if (Input::has('component_id') && Input::has('with_resources'))
         {
             $instances = QualitySystemInstance::with('qualitySystem')
