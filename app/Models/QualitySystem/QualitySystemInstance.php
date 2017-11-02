@@ -35,7 +35,11 @@ class QualitySystemInstance extends Model
     }
 
 
-    public function getResources()
+    public function getResources(){
+        return array_values($this->getIResources());
+    }
+
+    public function getIResources()
     {
         $result = [];
         if ($this->type == 2)
@@ -64,7 +68,7 @@ class QualitySystemInstance extends Model
 
     public function getNoUsedResources()
     {
-        $result = $this->getResources();
+        $result = $this->getIResources();
 
         $usedResourceKeys = Component::where('quality_system_instance_id', $this->id)->get()->pluck('app_code')->toArray();
 
