@@ -13,6 +13,7 @@ use App\Utils\Wrappers\HTTPWrapper;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 
 
 class ComponentCalculation extends Command
@@ -104,6 +105,8 @@ class ComponentCalculation extends Command
             }
         }
 
+        $values = collect();
+
         foreach ($result as $key => $value)
         {
             $info = explode('-', $key);
@@ -113,10 +116,10 @@ class ComponentCalculation extends Command
             $qadata['attribute_id'] = $info[2];
             $qadata['quantity'] = $value;
             $qadata['component_id'] = $analyzableComponent->id;
-
-            $this->wrapper->post($qastaURL . $attributeValueService, $qadata);
+            $values->push($qadata);
 
         }
+        $this->wrapper->post($qastaURL . $attributeValueService, $values);
     }
 
     public function sendInfo(Component $analyzableComponent, $qastaURL)
