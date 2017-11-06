@@ -130,7 +130,7 @@ class QualitySystemInstanceController extends ApiController
             } else
             {
                 $newClient = new APIClient();
-                $newClient->code = password_hash('testing', PASSWORD_BCRYPT);
+                $newClient->code = str_replace('/', '', password_hash($request->url . strtotime(date('Y-m-d H:i:s')), PASSWORD_BCRYPT));
                 $newClient->save();
                 $qsi->api_client_id = $newClient->id;
             }

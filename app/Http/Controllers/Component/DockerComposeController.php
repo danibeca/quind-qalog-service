@@ -37,7 +37,7 @@ class DockerComposeController extends ApiController
         $code = APIClient::find(QualitySystemInstance::where('component_owner_id', $id)
             ->get()->first()->api_client_id)->code;
 
-        $data_to_write = 'QUIND_ENDPOINT=' . env('QUIND_CLIENT_ENDPOINT') ."\n".
+        $data_to_write = "\n".'QUIND_ENDPOINT=' . env('QUIND_CLIENT_ENDPOINT') ."\n".
             'QOAUTH_SERVER=' . env('QOAUTH_SERVER') ."\n".
             'QOAUTH_CLIENT=' . env('QOAUTH_CLIENT_CLI') ."\n".
             'QOAUTH_SECRET=' . env('QOAUTH_SECRET_CLI') ."\n".
