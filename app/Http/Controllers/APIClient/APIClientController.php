@@ -27,8 +27,8 @@ class APIClientController extends ApiController
 
             if (Input::has('resources_needed'))
             {
-                if ($qualitySystemInstance->type === 2)
-                {
+                //if ($qualitySystemInstance->type === 2)
+                //{
                     $resourceCount = QualitySystemInstanceResource::where('quality_system_instance_id', $qualitySystemInstance->id)->count();
                     $resourceCount = ($resourceCount === 0)? 1 : $resourceCount;
                     return $this->respond(['check' => $resourceCount,
@@ -37,7 +37,7 @@ class APIClientController extends ApiController
                                            'password' => $qualitySystemInstance->password
 
                     ]);
-                }
+                //}
             }
 
             return $this->respond(false);

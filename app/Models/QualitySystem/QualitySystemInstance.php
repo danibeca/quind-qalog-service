@@ -58,7 +58,7 @@ class QualitySystemInstance extends Model
 
             } catch (RequestException $e)
             {
-                return [];
+                $result = QualitySystemInstanceResource::where('quality_system_instance_id', $this->id)->get()->toArray();
             }
         }
 
