@@ -533,7 +533,7 @@ class CreateIndicatorsTable extends Migration
                     'tmpname'          => 'Quind Potential Efficiency Bad Points - Present',
                     'code'             => 'qpe_bad_points_present',
                     'level'            => 2,
-                    'calculation_rule' => '{"+":[{"*":[ {"var": "@ind_brain-overload"},10 ]},{"*":[ {"var": "@ind_clumsy"},10 ]},{"*":[ {"var": "@ind_confusing"},10 ]},{"*":[ {"var": "@ind_design"},10 ]}]}',
+                    'calculation_rule' => '{"+":[{"*":[ {"var": "@ind_brain-overload"},10 ]},{"*":[ {"var": "@ind_bad-practice"},10 ]},{"*":[ {"var": "@ind_cert"},10 ]},{"*":[ {"var": "@ind_clumsy"},10 ]},{"*":[ {"var": "@ind_confusing"},10 ]},{"*":[ {"var": "@ind_design"},10 ]}]}',
                     'calculation_data' => '{"@ind_clumsy":"@ind_clumsy.value","@ind_design":"@ind_design.value","@ind_bad-practice":"@ind_bad-practice.value","@ind_cert":"@ind_cert.value"}',
                     'lr_name'          => null,
                 ),
