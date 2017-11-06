@@ -27,20 +27,26 @@ class APIClientComponentController extends ApiController
             }
 
             $ownerIds = $client->qualitySystemInstances()->get()->pluck('component_owner_id');
-            $roots = Component::
-            whereIn('id', $ownerIds)
-                ->Where(function ($query) {
-                    $query->where('run_client', 1)
-                        ->orWhere('last_run_client', '<=', Carbon::now()->subHours(12));
-                })->get();
-
-            foreach ($roots as $root)
+            if ($ownerIds)
             {
-                $root->run_client = 2;
-                $root->save();
-            }
+                $roots = Component::
+                whereIn('id', $ownerIds)
+                    ->Where(function ($query) {
+                        $query->where('run_client', 1)
+                            ->orWhere('last_run_client', '<=', Carbon::now()->subHours(12));
+                    })->get();
 
-            return $this->respond($roots->pluck('id'));
+                foreach ($roots as $root)
+                {
+                    $root->run_client = 2;
+                    $root->save();
+                }
+
+                return $this->respond($roots->pluck('id'));
+            } else
+            {
+                return $this->respond([]);
+            }
         }
 
         return $this->respondNotFound();
@@ -52,7 +58,8 @@ class APIClientComponentController extends ApiController
         if (isset($component))
         {
             $component->last_run_client = Carbon::now();
-            if($component->run_client === 2){
+            if ($component->run_client === 2)
+            {
                 $component->run_client = 0;
             }
             $component->run_quind = 1;

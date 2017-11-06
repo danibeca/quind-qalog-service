@@ -19,25 +19,30 @@ class APIClientController extends ApiController
         if (isset($client))
         {
             $qualitySystemInstance = QualitySystemInstance::where('api_client_id', $client->id)->get()->first();
-            if (! $qualitySystemInstance->verified)
+            if (isset($qualitySystemInstance))
             {
-                $qualitySystemInstance->verified = true;
-                $qualitySystemInstance->save();
-            }
+                if (! $qualitySystemInstance->verified)
+                {
+                    $qualitySystemInstance->verified = true;
+                    $qualitySystemInstance->save();
+                }
 
-            if (Input::has('resources_needed'))
-            {
-                //if ($qualitySystemInstance->type === 2)
-                //{
+
+                if (Input::has('resources_needed'))
+                {
+                    //if ($qualitySystemInstance->type === 2)
+                    //{
                     $resourceCount = QualitySystemInstanceResource::where('quality_system_instance_id', $qualitySystemInstance->id)->count();
-                    $resourceCount = ($resourceCount === 0)? 1 : $resourceCount;
-                    return $this->respond(['check' => $resourceCount,
-                                           'url' => $qualitySystemInstance->url,
+                    $resourceCount = ($resourceCount === 0) ? 1 : $resourceCount;
+
+                    return $this->respond(['check'    => $resourceCount,
+                                           'url'      => $qualitySystemInstance->url,
                                            'username' => $qualitySystemInstance->username,
                                            'password' => $qualitySystemInstance->password
 
                     ]);
-                //}
+                    //}
+                }
             }
 
             return $this->respond(false);
