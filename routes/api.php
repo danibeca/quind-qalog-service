@@ -40,7 +40,7 @@ $router->group([
 
             $router->get('/{id:[\d]+}/quality-system-instances', ['uses' => 'ComponentQualitySystemController@index']);
 
-            $router->get('/{id:[\d]+}/docker', ['uses' => 'DockerComposeController@index']);
+
 
         });
 
