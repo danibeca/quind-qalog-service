@@ -34,9 +34,13 @@ class Metric extends Model
 
     public function calculateFromExternalMetric($componentId)
     {
-        $systemId = Component::find($componentId)->qualitySystemInstance->qualitySystem->id;
-        /** @var ExternalMetric $externalMetric */
-        $externalMetric = ExternalMetric::where('metric_id', $this->id)->where('quality_system_id', $systemId)->get()->first();
-        return $externalMetric->calculate($componentId);
+        $component = Component::find($componentId);
+        if(isset($component, $component->qualitySystemInstance,$component->qualitySystemInstance->qualitySystem)){
+            $systemId = $component->qualitySystemInstance->qualitySystem->id;
+            /** @var ExternalMetric $externalMetric */
+            $externalMetric = ExternalMetric::where('metric_id', $this->id)->where('quality_system_id', $systemId)->get()->first();
+            return $externalMetric->calculate($componentId);
+        }
+        return 0;
     }
 }
