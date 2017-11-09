@@ -15,7 +15,7 @@ class QualitySystemInstance extends Model
         return $this->belongsTo('\App\Models\QualitySystem\QualitySystem', 'quality_system_id');
     }
 
-    public static function verify($url, $username, $password)
+    public static function verify($url, $username = null, $password = null)
     {
         $client = new HTTPWrapper($username, $password);
         try

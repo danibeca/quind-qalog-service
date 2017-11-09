@@ -10,8 +10,7 @@ use App\Utils\Transformers\QualitySystemInstanceTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 
-class QualitySystemInstanceController extends ApiController
-{
+class QualitySystemInstanceController extends ApiController {
 
 
     public function index()
@@ -85,7 +84,7 @@ class QualitySystemInstanceController extends ApiController
         $qsi->type = $request->type;
         $qsi->verified = $verified;
         $qsi->component_owner_id = $request->component_id;
-        if ($request->has('username'))
+        if ($request->has('username') && ! empty($request->username))
         {
             $qsi->username = $request->username;
             $qsi->password = $request->password;
@@ -120,8 +119,15 @@ class QualitySystemInstanceController extends ApiController
 
             if ($request->has('username'))
             {
-                $qsi->username = $request->username;
-                $qsi->password = $request->password;
+                if (! empty($request->username))
+                {
+                    $qsi->username = $request->username;
+                    $qsi->password = $request->password;
+                } else
+                {
+                    $qsi->username = null;
+                    $qsi->password = null;
+                }
             }
 
             if ($request->type == 1)
@@ -146,7 +152,14 @@ class QualitySystemInstanceController extends ApiController
 
     public function verify()
     {
-        return $this->respond(QualitySystemInstance::verify(Input::get('url'), Input::get('username'), Input::get('password')));
+        if (Input::has('username') && ! empty(Input::get('username')))
+        {
+            return $this->respond(QualitySystemInstance::verify(Input::get('url'), Input::get('username'), Input::get('password')));
+        } else
+        {
+            return $this->respond(QualitySystemInstance::verify(Input::get('url')));
+        }
+
     }
 
 
