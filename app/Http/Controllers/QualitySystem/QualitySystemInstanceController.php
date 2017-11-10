@@ -96,7 +96,7 @@ class QualitySystemInstanceController extends ApiController {
         } else
         {
             $newClient = new APIClient();
-            $newClient->code = str_replace('.','',str_replace('/', '', password_hash($request->url . strtotime(date('Y-m-d H:i:s')), PASSWORD_BCRYPT)));
+            $newClient->code = str_replace('.', '', str_replace('/', '', password_hash($request->url . strtotime(date('Y-m-d H:i:s')), PASSWORD_BCRYPT)));
             $newClient->save();
             $qsi->api_client_id = $newClient->id;
         }
@@ -114,6 +114,7 @@ class QualitySystemInstanceController extends ApiController {
             $verified = ($request->has('verified')) ? $request->verified : false;
             $qsi->quality_system_id = $request->quality_system_id;
             $qsi->url = $request->url;
+            $oldType = $qsi->type;
             $qsi->type = $request->type;
             $qsi->verified = $verified;
 
@@ -131,7 +132,8 @@ class QualitySystemInstanceController extends ApiController {
             if ($request->type == 1)
             {
                 $qsi->api_client_id = 1;
-            } else
+            }
+            else if($oldType == 1)
             {
                 $newClient = new APIClient();
                 $newClient->code = str_replace('/', '', password_hash($request->url . strtotime(date('Y-m-d H:i:s')), PASSWORD_BCRYPT));
