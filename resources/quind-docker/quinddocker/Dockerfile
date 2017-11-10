@@ -7,7 +7,6 @@ RUN apt-get update \
     && apt-get -y install php7.1-mbstring \
     && apt-get -y install git \
     && apt-get -y install composer \
-    && apt-get install -y rsyslog \
     && apt-get install -y cron \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
