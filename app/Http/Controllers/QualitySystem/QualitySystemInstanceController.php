@@ -117,17 +117,15 @@ class QualitySystemInstanceController extends ApiController {
             $qsi->type = $request->type;
             $qsi->verified = $verified;
 
-            if ($request->has('username'))
+            if ($request->has('username') && ! empty($request->username))
             {
-                if (! empty($request->username))
-                {
-                    $qsi->username = $request->username;
-                    $qsi->password = $request->password;
-                } else
-                {
-                    $qsi->username = null;
-                    $qsi->password = null;
-                }
+                $qsi->username = $request->username;
+                $qsi->password = $request->password;
+
+            } else
+            {
+                $qsi->username = null;
+                $qsi->password = null;
             }
 
             if ($request->type == 1)
