@@ -1,8 +1,0 @@
-version: '2'
-services:
-   php-fpm:
-      build: php-fpm
-      container_name: quind-php
-      working_dir: /quind
-      volumes:
-        - .:/quind
